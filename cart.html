@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart</title>
+  </head>
+
+  <style>
+    #carts {
+      margin-left: 20%;
+      display: grid;
+      grid-template-columns: repeat(3, 30%);
+    }
+    img {
+      margin-top: 30px;
+      height: 200px;
+      border: 1px solid rgb(151, 151, 151);
+    }
+    a{
+       float: right;
+      font-size: 30px;
+      margin-right: 50px;
+      border: 2px solid red;
+      padding: 10px 15px;
+    }
+  </style>
+  <body>
+    <h1>Your cart is here</h1>
+
+    <input type="text" id="promo" placeholder="enter promocode" />
+    <button onclick="promo()">Apply Promocode</button>
+    <a href="checkout.html">Check Out</a>
+    <div id="carts"></div>
+    <div id="pricediv"></div>
+  </body>
+</html>
+
+<script>
+  var price_div = document.getElementById("pricediv");
+  var data_div = document.getElementById("carts");
+  function appendProducts(el) {
+    let div = document.createElement("div");
+    let img = document.createElement("img");
+    img.src = el.img;
+
+    let p_name = document.createElement("p");
+    p_name.innerHTML = el.name;
+
+    let p_price = document.createElement("p");
+    p_price.innerHTML = el.price;
+
+    let p_brand = document.createElement("p");
+    p_brand.innerHTML = el.brand;
+
+    div.append(img, p_name, p_price, p_brand);
+    data_div.append(div);
+  }
+  // let div1 = document.createElement("div");
+  // let sum = 0;
+  // for (var i = 0; i < cart.length; i++) {
+  //   sum += el.price;
+  // }
+
+  // div1.append(sum);
+  // price_div.append(div1);
+
+  function showCart() {
+    let data = JSON.parse(localStorage.getItem("cart"));
+    data_div.innerHTML = null;
+    data.forEach(function (el) {
+      appendProducts(el);
+    });
+  }
+  showCart();
+  
+
+  var promo = document.getElementById("promo").value;
+  function promo() {
+    if (promo == "masai30") {
+      (document.getElementById("price").value / 20) * 100;
+    }
+  }
+</script>
